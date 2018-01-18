@@ -12,9 +12,11 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage {
     private WebDriver webDriver;
+    private Browser browser;
 
-    public BasePage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+    public BasePage(Browser browser) {
+        this.browser=browser;
+        webDriver = browser.webDriver;
         // PageFactory.initElements(this.webDriver, this);
     }
 

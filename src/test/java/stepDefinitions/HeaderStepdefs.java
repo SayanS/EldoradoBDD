@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import steps.HeaderSteps;
 import steps.HomePageSteps;
@@ -17,6 +16,6 @@ public class HeaderStepdefs {
 
     @Then("^Enter \"([^\"]*)\" into Global Search field$")
     public void enterIntoGlobalSearchField(String searchText) throws Throwable {
-        throw new PendingException();
+
     }
 }
