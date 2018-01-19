@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,12 +14,14 @@ public class Hooks {
     }
 
     @Before
-    public void setUp(){
+    public void setUp(Scenario scenario){
         browser.webDriver=new ChromeDriver();
+        System.out.println("_____________________________________________");
+        System.out.println(scenario.getName());
       //  browser.webDriver.manage().window().maximize();
     }
     @After
-    public void tearDown(){
+    public void tearDown(Scenario scenario){
         browser.webDriver.quit();
     }
 

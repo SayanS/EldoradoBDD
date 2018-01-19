@@ -1,6 +1,6 @@
-Feature: Global Search functionality
+Feature: 1Global Search functionality
 
-  Scenario Outline: Search by product name
+  Scenario Outline: 1Search by product name
     Given Home page is opened
     Given User credentials
       | login | password |

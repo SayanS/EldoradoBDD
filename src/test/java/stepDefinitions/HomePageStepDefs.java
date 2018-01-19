@@ -1,8 +1,14 @@
 package stepDefinitions;
 
+import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import models.User;
 import steps.HeaderSteps;
 import steps.HomePageSteps;
+import utils.GenerateUniqueEmail;
+
+import java.util.List;
 
 public class HomePageStepDefs {
 
@@ -19,4 +25,13 @@ public class HomePageStepDefs {
         homePageSteps.open();
     }
 
+    @Given("^User credentials$")
+    public void userCredentialsAnd(List<User> user) {
+       homePageSteps.printUserCredentials(user.get(0));
+    }
+
+    @Then("^Change user \"([^\"]*)\" to unique value$")
+    public void changeUserToUniqueValue(@Transform(GenerateUniqueEmail.class) String email) {
+        System.out.println(email);
+    }
 }
