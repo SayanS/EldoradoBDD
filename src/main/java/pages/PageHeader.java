@@ -1,5 +1,6 @@
 package pages;
 
+import models.Browser;
 import org.openqa.selenium.WebDriver;
 
 public class PageHeader extends BasePage {
@@ -8,7 +9,8 @@ public class PageHeader extends BasePage {
 
     public PageHeader(Browser browser){
         super(browser);
-        webDriver=browser.webDriver;
+        this.browser=browser;
+        this.webDriver=this.browser.webDriver;
     }
 
     public final String SEARCH_FIELD=".//div[@class='header-content desktop-header']//input";

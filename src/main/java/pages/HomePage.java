@@ -1,5 +1,6 @@
 package pages;
 
+import models.Browser;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends PageHeader {
@@ -13,9 +14,8 @@ public class HomePage extends PageHeader {
         webDriver = browser.webDriver;
     }
 
-    public HomePage open() {
+    public void open() {
         webDriver.navigate().to(URL);
-        return new HomePage(browser);
     }
 
 }

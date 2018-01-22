@@ -2,12 +2,15 @@ package pages;
 
 
 import com.google.common.base.Function;
+import models.Browser;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage {
@@ -20,11 +23,31 @@ public abstract class BasePage {
         // PageFactory.initElements(this.webDriver, this);
     }
 
-    public WebElement findBy(String xpath) {
+    protected WebElement findBy(String xpath) {
         return webDriver.findElement(By.xpath(xpath));
     }
 
-    public void clickOnJS(String xpath) {
+    protected WebElement find(By byXpath) {
+        return webDriver.findElement(byXpath);
+    }
+
+    protected List<WebElement> findAllBy(String xpath){
+        return webDriver.findElements(By.xpath(xpath));
+    }
+
+    protected List<String> getTextValuesFrom(List<WebElement> webElements){
+        List<String> textValues=new ArrayList<>();
+        webElements.forEach(webElement->textValues.add(webElement.getText()));
+        return textValues;
+    }
+
+    public List<String> getTextValuesOf(String xpath){
+        List<String> textValues=new ArrayList<>();
+        findAllBy(xpath).forEach(webElement->textValues.add(webElement.getText()));
+        return textValues;
+    }
+
+    public void clickOnByXpathJS(String xpath) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", findBy(xpath));
     }
 
@@ -37,18 +60,20 @@ public abstract class BasePage {
         ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, 0)");
     }
 
-    public WebElement moveTo(String xpath){
+    protected WebElement moveTo(String xpath){
         Actions actions=new Actions(webDriver);
         actions.moveToElement(findBy(xpath)).perform();
         return  findBy(xpath);
     }
 
-    public void clickOn(String xpath) {
+    protected void clickOnByXpath(String xpath) {
         waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,3);
+        scrollIntoView(xpath, 100);
+        waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
         findBy(xpath);
     }
 
-    public <V> V waitFor(Function<? super WebDriver,V> condition, TimeUnit timeUnit, int timeout){
+    protected <V> V waitFor(Function<? super WebDriver,V> condition, TimeUnit timeUnit, int timeout){
         try {
             Wait<WebDriver> wait = new FluentWait<WebDriver>(webDriver).withTimeout(timeout, timeUnit)
                     .ignoring(NoSuchElementException.class)
@@ -59,6 +84,14 @@ public abstract class BasePage {
             System.out.println("Element hasn't been found:TIMEOUT EXCEPTION");
             return null;
         }
+    }
+
+    public void enterValueIntoField(String xpath, String value){
+        waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,5);
+        scrollIntoView(xpath);
+        waitFor(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,5);
+        waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
+        findBy(xpath).sendKeys(value);
     }
 
 
