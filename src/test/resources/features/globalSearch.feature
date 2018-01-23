@@ -12,6 +12,16 @@ Feature: Global Search functionality
 #      | product name |
 #      | телевизор    |
 
+  Scenario: Check that first product name from the Autosuggest list equal to Search product
+    Given Home page is opened
+    Given Click on "Да" button of Select city pop-up
+    When Enter "Телевизор TOSHIBA 49U7750EV" into Global Search field
+    Then First item of the Autosuggest list of the Header Search should be
+      | imgLink                                              | productName                 | oldPrice | price    |
+      | https://i.eldorado.ua//55x55//goods/5477/5477164.jpg | Телевизор TOSHIBA 49U7750EV |          | 16999 .- |
+      | https://i.eldorado.ua//55x55//goods/5477/5477164.jpg | Микроволновка               | 1000     | 2000     |
+
+
   Scenario Outline: Check Search city
     Given Home page is opened
     When Click on "Нет" button of Select city pop-up
@@ -21,6 +31,13 @@ Feature: Global Search functionality
       | text    |
       | П       |
       | Харьков |
+
+  Scenario: Check ability to select default city
+    Given Home page is opened
+    When Click on "Нет" button of Select city pop-up
+    When Select city "Харьков" on Select city pop-up
+    Then Selected city "Харьков" should be displayed in Header menu
+    Then Notification message "Город изменен на Харьков" should be displayed
 
 
 

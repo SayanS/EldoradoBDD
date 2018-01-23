@@ -25,4 +25,9 @@ public class SelectCityStepDefs {
     public void eachContextCityOnSelectCityPopUpShouldStartWith(String text)  {
        selectCityPopUpSteps.isEachContextCityStartsWith(text);
     }
+
+    @When("^Select city \"([^\"]*)\" on Select city pop-up$")
+    public void selectCityOnSelectCityPopUp(String cityName) {
+        selectCityPopUpSteps.selectCity(cityName);
+    }
 }

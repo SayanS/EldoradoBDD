@@ -1,16 +1,16 @@
 package steps;
 
 import models.User;
-import pages.HomePage;
+import pages.Home;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 public class HomePageSteps {
 
-    HomePage homePage;
+    Home homePage;
 
-    public HomePageSteps(HomePage homePage){
+    public HomePageSteps(Home homePage){
         this.homePage=homePage;
     }
 

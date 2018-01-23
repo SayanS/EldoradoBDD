@@ -47,6 +47,14 @@ public abstract class BasePage {
         return textValues;
     }
 
+    public String getTextOf(String xpath){
+        return findBy(xpath).getText();
+    }
+
+    public String getTextOf(String xpath, String keyWord){
+        return getTextOf(xpath.replace("$KeyWord", keyWord));
+    }
+
     public void clickOnByXpathJS(String xpath) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", findBy(xpath));
     }
@@ -66,11 +74,16 @@ public abstract class BasePage {
         return  findBy(xpath);
     }
 
-    protected void clickOnByXpath(String xpath) {
+    public void clickOnByXpath(String xpath) {
         waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,3);
-        scrollIntoView(xpath, 100);
+        scrollIntoView(xpath, -100);
+        moveTo(xpath);
         waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
-        findBy(xpath);
+        findBy(xpath).click();
+    }
+
+    public void clickOnByXpath(String xpath, String keyWord) {
+        clickOnByXpath(xpath.replace("$KeyWord",keyWord));
     }
 
     protected <V> V waitFor(Function<? super WebDriver,V> condition, TimeUnit timeUnit, int timeout){
@@ -86,6 +99,18 @@ public abstract class BasePage {
         }
     }
 
+    public Boolean waitForTextToBePresentIn(String xpath, String text, Integer seconds) {
+        return waitFor(ExpectedConditions.textToBePresentInElement(By.xpath(xpath),text), TimeUnit.SECONDS, seconds);
+    }
+
+    public Boolean waitForVisibilityOfElementLocatedByXpath(String xpath, Integer seconds) {
+        waitFor(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS, seconds);
+        if(waitFor(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS, seconds)!=null){
+            return true;
+        }
+        return false;
+    }
+
     public void enterValueIntoField(String xpath, String value){
         waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,5);
         scrollIntoView(xpath);
@@ -93,6 +118,8 @@ public abstract class BasePage {
         waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
         findBy(xpath).sendKeys(value);
     }
+
+
 
 
 }

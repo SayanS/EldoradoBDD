@@ -11,7 +11,7 @@ public class SelectCityPopUpSteps {
     }
 
     public void clickOnButton(String buttonName) {
-        selectCityPopUp.clickOnButton(buttonName);
+        selectCityPopUp.clickOnByXpath(selectCityPopUp.YES_NO_CONFIRM_CITY_BUTTONS,buttonName);
     }
 
     public void enterCityName(String text) {
@@ -19,6 +19,12 @@ public class SelectCityPopUpSteps {
     }
 
     public void isEachContextCityStartsWith(String text) {
-        selectCityPopUp.getContextCities().forEach(cityName->Assert.assertTrue(cityName.startsWith(text)));
+        selectCityPopUp.getListOfContextCities().forEach(cityName->Assert.assertTrue(cityName.startsWith(text)));
     }
+
+    public void selectCity(String cityName) {
+        selectCityPopUp.clickOnByXpath(selectCityPopUp.CITY_LINK,cityName);
+    }
+
+
 }

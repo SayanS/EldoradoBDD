@@ -29,6 +29,8 @@ public class Hooks {
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--start-maximized");
 
         ChromeDriverService service = new ChromeDriverService.Builder()
                 .usingDriverExecutable(new File("./src/test/resources/webdrivers/chromedriver"))
@@ -41,7 +43,7 @@ public class Hooks {
         browser.webDriver=new ChromeDriver(service, options);
         System.out.println("_____________________________________________");
         System.out.println(scenario.getName());
-        browser.webDriver.manage().window().maximize();
+      //  browser.webDriver.manage().window().maximize();
     }
     @After
     public void tearDown(Scenario scenario){

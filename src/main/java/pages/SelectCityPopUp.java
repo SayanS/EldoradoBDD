@@ -15,15 +15,14 @@ public class SelectCityPopUp extends BasePage {
         this.webDriver = this.browser.webDriver;
     }
 
-    public String BUTTON_XPATH = ".//div[@class='select-city-li']//*[contains(@class,'button') and .='$Name']";
+    public String YES_NO_CONFIRM_CITY_BUTTONS = ".//div[@class='select-city-li']//*[contains(@class,'button') and .='$KeyWord']";
     public String INPUT_CITY = ".//div[@class='city-select']//input[@class='react-autosuggest__input']";
     public String CONTEXT_CITIES = ".//ul[@class='city-select-content row']/li/div";
+    public String CITY_LINK=".//ul[@class='city-select-content row']/li/div[.='$KeyWord']";
 
-    public void clickOnButton(String name) {
-        moveTo(BUTTON_XPATH.replace("$Name", name)).click();
-    }
-
-    public List<String> getContextCities() {
+    public List<String> getListOfContextCities() {
       return getTextValuesOf(CONTEXT_CITIES);
     }
+
+
 }
