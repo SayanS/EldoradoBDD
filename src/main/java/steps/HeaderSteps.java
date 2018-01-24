@@ -32,12 +32,23 @@ public class HeaderSteps {
         SearchProductAutoSuggestLine searchProductAutoSuggestLine=new SearchProductAutoSuggestLine("http://","Телевизор TOSHIBA 49U7750EV","","16999 .-");
         List<SearchProductAutoSuggestLine> autosuggestLines=new ArrayList<>();
         autosuggestLines.add(searchProductAutoSuggestLine);
-        autosuggestLines.add(new SearchProductAutoSuggestLine("https://i.eldorado.ua//55x55//goods/5477/5477164.jpg","Микроволновка", "5000","2000"));
         try {
             autosuggestLine.diff(DataTable.create(autosuggestLines));
             Assert.assertTrue(true);
         }catch(cucumber.runtime.table.TableDiffException e){
             Assert.assertTrue(e.getMessage(),false);
         }
+    }
+
+    public void clickOnButtonOnAutosuggestList(String buttonName) {
+        header.clickOnByXpath(header.BUTTON,buttonName);
+    }
+
+    public void enterIntoGlobalSearchField(String text) {
+        header.enterValueIntoField(header.SEARCH_FIELD,text);
+    }
+
+    public void clickOnShowAllButtonOnAutosuggestList() throws InterruptedException {
+        header.clickOnShowAllButton();
     }
 }

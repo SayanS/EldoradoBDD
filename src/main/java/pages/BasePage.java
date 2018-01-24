@@ -75,7 +75,7 @@ public abstract class BasePage {
     }
 
     public void clickOnByXpath(String xpath) {
-        waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,3);
+        waitFor(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)), TimeUnit.SECONDS,5);
         scrollIntoView(xpath, -100);
         moveTo(xpath);
         waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
@@ -118,7 +118,6 @@ public abstract class BasePage {
         waitFor(ExpectedConditions.elementToBeClickable(By.xpath(xpath)), TimeUnit.SECONDS,3);
         findBy(xpath).sendKeys(value);
     }
-
 
 
 
