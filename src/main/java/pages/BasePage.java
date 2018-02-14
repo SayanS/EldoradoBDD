@@ -100,7 +100,7 @@ public abstract class BasePage {
     }
 
     public Boolean waitForTextToBePresentIn(String xpath, String text, Integer seconds) {
-        return waitFor(ExpectedConditions.textToBePresentInElement(By.xpath(xpath),text), TimeUnit.SECONDS, seconds);
+        return waitFor(ExpectedConditions.textToBePresentInElementLocated(By.xpath(xpath),text), TimeUnit.SECONDS, seconds);
     }
 
     public Boolean waitForVisibilityOfElementLocatedByXpath(String xpath, Integer seconds) {

@@ -3,7 +3,7 @@ package pages;
 import models.Browser;
 import org.openqa.selenium.WebDriver;
 
-public class Header extends BasePage {
+public abstract class Header extends BasePage {
     private Browser browser;
     private WebDriver webDriver;
 

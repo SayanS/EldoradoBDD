@@ -1,26 +1,20 @@
 package stepDefinitions;
 
 import cucumber.api.java.en.Then;
-import steps.HeaderSteps;
-import steps.HomePageSteps;
-import steps.SearchResultsSteps;
-import steps.SelectCityPopUpSteps;
+import org.junit.Assert;
+import pages.SearchResultsPage;
 
 public class SearchResultsStepDefs {
-    private HeaderSteps headerSteps;
-    private HomePageSteps homePageSteps;
-    private SelectCityPopUpSteps selectCityPopUpSteps;
-    private SearchResultsSteps searchResultsSteps;
+    private SearchResultsPage searchResultsPage;
 
-    public SearchResultsStepDefs(HeaderSteps headerSteps, HomePageSteps homePageSteps, SelectCityPopUpSteps selectCityPopUpSteps, SearchResultsSteps searchResultsSteps){
-        this.headerSteps=headerSteps;
-        this.homePageSteps=homePageSteps;
-        this.selectCityPopUpSteps=selectCityPopUpSteps;
-        this.searchResultsSteps=searchResultsSteps;
+    public SearchResultsStepDefs(SearchResultsPage searchResultsPage){
+        this.searchResultsPage=searchResultsPage;
     }
 
     @Then("^All descriptions of the products in Search results should contain \"([^\"]*)\"$")
     public void allDescriptionsOfTheProductsInSearchResultsShouldContain(String text) throws InterruptedException {
-        searchResultsSteps.isEachProductDescriptionContain(text);
+        Thread.sleep(2000);
+        searchResultsPage.getTextValuesOf(searchResultsPage.GOOD_CONTAINER_GOOD_DESCRIPTION)
+                .forEach(description-> Assert.assertTrue(description.toLowerCase().contains(text)));
     }
 }
