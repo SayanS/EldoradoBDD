@@ -15,11 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage {
     private WebDriver webDriver;
-    private Browser browser;
+//    private Browser browser;
 
     public BasePage(Browser browser) {
-        this.browser=browser;
-        webDriver = browser.webDriver;
+        this.webDriver=browser.getWebDriver();
         // PageFactory.initElements(this.webDriver, this);
     }
 
@@ -65,7 +64,10 @@ public abstract class BasePage {
     }
 
     public void scrollIntoView(String xpath) {
-        ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, 0)");
+        int y = webDriver.findElement(By.xpath(xpath)).getLocation().getY();
+        int x = webDriver.findElement(By.xpath(xpath)).getLocation().getX();
+        ((JavascriptExecutor) webDriver)
+                .executeScript("window.scrollTo("+x+"," +y+")");
     }
 
     protected WebElement moveTo(String xpath){
@@ -88,7 +90,7 @@ public abstract class BasePage {
 
     protected <V> V waitFor(Function<? super WebDriver,V> condition, TimeUnit timeUnit, int timeout){
         try {
-            Wait<WebDriver> wait = new FluentWait<WebDriver>(webDriver).withTimeout(timeout, timeUnit)
+            Wait<WebDriver> wait = new FluentWait<>(webDriver).withTimeout(timeout, timeUnit)
                     .ignoring(NoSuchElementException.class)
                     .ignoring(StaleElementReferenceException.class).
                             pollingEvery(500, TimeUnit.MILLISECONDS);

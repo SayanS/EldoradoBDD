@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeaderStepdefs {
-    private Header header;
+    public Header header;
 
     public HeaderStepdefs(Header header) {
         this.header = header;

@@ -5,13 +5,13 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage extends Header {
     private String URL = "https://eldorado.ua/";
-    private Browser browser;
+//    private Browser browser;
     private WebDriver webDriver;
 
     public HomePage(Browser browser) {
         super(browser);
-        this.browser=browser;
-        webDriver = browser.webDriver;
+        this.webDriver=browser.getWebDriver();
+//        webDriver = browser.webDriver;
     }
 
     public void open() {

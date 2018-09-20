@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import java.util.List;
 
 public class SelectCityPopUp extends BasePage {
-    private Browser browser;
+//    private Browser browser;
     private WebDriver webDriver;
 
     public SelectCityPopUp(Browser browser) {
         super(browser);
-        this.browser=browser;
-        this.webDriver = this.browser.webDriver;
+//        this.browser=browser;
+        this.webDriver = browser.getWebDriver();
     }
 
     public String YES_NO_CONFIRM_CITY_BUTTONS = ".//div[@class='select-city-li']//*[contains(@class,'button') and .='$KeyWord']";
